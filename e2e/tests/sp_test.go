@@ -154,6 +154,51 @@ func (s *StorageProviderTestSuite) TestCreateStorageProvider() {
 	s.Require().Equal(querySPResp.StorageProvider.SealAddress, newSP.SealKey.GetAddr().String())
 	s.Require().Equal(querySPResp.StorageProvider.ApprovalAddress, newSP.ApprovalKey.GetAddr().String())
 	s.Require().Equal(querySPResp.StorageProvider.Endpoint, endpoint)
+
+	// 7. edit storage provider
+	prevSP := querySPResp.StorageProvider
+
+	newEditSP := &sptypes.StorageProvider{
+		OperatorAddress: prevSP.OperatorAddress,
+		FundingAddress:  prevSP.FundingAddress,
+		SealAddress:     prevSP.SealAddress,
+		ApprovalAddress: prevSP.ApprovalAddress,
+		Description: sptypes.Description{
+			Moniker:  "sp_test_edit",
+			Identity: "",
+		},
+		Endpoint:     "http://127.0.0.1:9034",
+		TotalDeposit: prevSP.TotalDeposit,
+	}
+
+	msgEditSP := sptypes.NewMsgEditStorageProvider(
+		newSP.OperatorKey.GetAddr(), newEditSP.Endpoint, &newEditSP.Description)
+	txRes = s.SendTxBlock(msgEditSP, newSP.OperatorKey)
+	s.Require().Equal(txRes.Code, uint32(0))
+
+	// 3. query modifyed storage provider
+	querySPReq = sptypes.QueryStorageProviderRequest{
+		SpAddress: newSP.OperatorKey.GetAddr().String(),
+	}
+
+	querySPResp, err = s.Client.StorageProvider(ctx, &querySPReq)
+	s.Require().NoError(err)
+	s.Require().Equal(querySPResp.StorageProvider, newEditSP)
+
+	// 4. revert storage provider info
+	msgEditSP = sptypes.NewMsgEditStorageProvider(
+		newSP.OperatorKey.GetAddr(), prevSP.Endpoint, &prevSP.Description)
+	txRes = s.SendTxBlock(msgEditSP, newSP.OperatorKey)
+	s.Require().Equal(txRes.Code, uint32(0))
+
+	// 5. query revert storage provider again
+	querySPReq = sptypes.QueryStorageProviderRequest{
+		SpAddress: newSP.OperatorKey.GetAddr().String(),
+	}
+
+	querySPResp, err = s.Client.StorageProvider(ctx, &querySPReq)
+	s.Require().NoError(err)
+	s.Require().Equal(querySPResp.StorageProvider, prevSP)
 }
 
 func (s *StorageProviderTestSuite) TestEditStorageProvider() {
