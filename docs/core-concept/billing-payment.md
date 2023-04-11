@@ -1,14 +1,14 @@
 # Billing and Payment
 
-Greenfield will charge the users in two parts. Firstly, every
-transaction will require gas fees to pay the Greenfield validator to
-write the metadata on-chain. Secondly, the SPs charge the users for
-their storage service. Such payment also happens on the Greenfield. This
-document is about the latter: how such off-chain service fees are billed
+In Greenfield, users are required to pay two different types of fees:
+- Firstly, every transaction will require gas fees to pay the Greenfield validator to
+  write the metadata on-chain as described in [Gas and Fee](gas-fees.md) part.
+- Secondly, the SPs charge the users for their storage service. Such payment also happens on the Greenfield.
+
+This document is about the latter: how such off-chain service fees are billed
 and charged.
 
-There are two kinds of fees for the off-chain service: object storage
-fee and read fee:
+There are two kinds of fees for the off-chain service: **object storage fee** and **read fee**:
 
 1. Every object stored on Greenfield is charged a fee based on its
    size. The storage price is determined by the service providers.

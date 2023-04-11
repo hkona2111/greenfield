@@ -44,5 +44,51 @@ consumption. As a result, Greenfield does not impose any limitations on the gas 
 block size to under 1MB in order to prevent excessively large blocks.
 
 ## Fee Table
-TODO(coming soon)
 
+Please note that the following information can be updated at any time and may not be immediately reflected in the 
+documentation.
+
+| Msg Type                                    | Gas Used           | Gas Price | Expected Fee(assuming BNB $300) |
+|---------------------------------------------|--------------------|-----------|---------------------------------|
+| authz.MsgExec                               | 1.20E+03           | 5 gwei    | $0.0018                         |
+| authz.MsgRevoke                             | 1.20E+03           | 5 gwei    | $0.0018                         |
+| bank.MsgSend                                | 1.20E+03           | 5 gwei    | $0.0018                         |
+| distribution.MsgSetWithdrawAddress          | 1.20E+03           | 5 gwei    | $0.0018                         |
+| distribution.MsgWithdrawDelegatorReward     | 1.20E+03           | 5 gwei    | $0.0018                         |
+| distribution.MsgWithdrawValidatorCommission | 1.20E+03           | 5 gwei    | $0.0018                         |
+| feegrant.MsgRevokeAllowance                 | 1.20E+03           | 5 gwei    | $0.0018                         |
+| gov.MsgDeposit                              | 1.20E+03           | 5 gwei    | $0.0018                         |
+| gov.MsgSubmitProposal                       | 2.00E+08           | 5 gwei    | $300                            |
+| gov.MsgVote                                 | 2.00E+07           | 5 gwei    | $30                             |
+| gov.MsgVoteWeighted                         | 2.00E+07           | 5 gwei    | $30                             |
+| oracle.MsgClaim                             | 1.00E+03           | 5 gwei    | $0.0015                         |
+| slashing.MsgUnjail                          | 1.20E+03           | 5 gwei    | $0.0018                         |
+| staking.MsgBeginRedelegate                  | 1.20E+03           | 5 gwei    | $0.0018                         |
+| staking.MsgCancelUnbondingDelegation        | 1.20E+03           | 5 gwei    | $0.0018                         |
+| staking.MsgCreateValidator                  | 2.00E+08           | 5 gwei    | $300                            |
+| staking.MsgDelegate                         | 1.20E+03           | 5 gwei    | $0.0018                         |
+| staking.MsgEditValidator                    | 2.00E+07           | 5 gwei    | $30                             |
+| staking.MsgUndelegate                       | 1.20E+03           | 5 gwei    | $0.0018                         |
+| bridge.MsgTransferOut                       | 1.20E+03           | 5 gwei    | $0.0018                         |
+| sp.MsgDeposit                               | 1.20E+03           | 5 gwei    | $0.0018                         |
+| sp.MsgEditStorageProvider                   | 2.00E+07           | 5 gwei    | $30                             |
+| staking.MsgCreateStorageProvider            | 2.00E+08           | 5 gwei    | $300                            |
+| storage.MsgCopyObject                       | 1.20E+03           | 5 gwei    | $0.0018                         |
+| storage.MsgDeleteObject                     | 1.20E+03           | 5 gwei    | $0.0018                         |
+| storage.MsgCreateBucket                     | 2.40E+03           | 5 gwei    | $0.0036                         |
+| storage.MsgCreateGroup                      | 2.40E+03           | 5 gwei    | $0.0036                         |
+| storage.MsgCreateObject                     | 1.20E+03           | 5 gwei    | $0.0018                         |
+| storage.MsgDeleteBucket                     | 1.20E+03           | 5 gwei    | $0.0018                         |
+| storage.MsgDeleteGroup                      | 1.20E+03           | 5 gwei    | $0.0018                         |
+| storage.MsgLeaveGroup                       | 1.20E+03           | 5 gwei    | $0.0018                         |
+| storage.MsgRejectSealObject                 | 1.20E+04           | 5 gwei    | $0.018                          |
+| storage.MsgSealObject                       | 1.20E+02           | 5 gwei    | $0.00018                        |
+| storage.MsgUpdateGroupMember                | 1.20E+03           | 5 gwei    | $0.0018                         |
+| storage.MsgCreatePaymentAccount             | 2.00E+05           | 5 gwei    | $0.3                            |
+| storage.MsgPutPolicy                        | 2.40E+03           | 5 gwei    | $0.0036                         |
+| storage.MsgDeletePolicy                     | 1.20E+03           | 5 gwei    | $0.0018                         |
+| storage.MsgWithdraw                         | 1.20E+03           | 5 gwei    | $0.0018                         |
+| storage.MsgDisableRefund                    | 1.20E+03           | 5 gwei    | $0.0018                         |
+| authz.MsgGrant                              | 8e2 + 8e2 per item | 5 gwei    | $0.0012 per item                |
+| bank.MsgMultiSend                           | 8e2 + 8e2 per item | 5 gwei    | $0.0012 per item                |
+| feegrant.MsgGrantAllowance                  | 8e2 + 8e2 per item | 5 gwei    | $0.0012 per item                |

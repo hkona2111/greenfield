@@ -4,14 +4,14 @@ BNB remains the main utility token on Greenfield.
 
 BNB can be transferred from BSC to Greenfield blockchain, and vice versa. It is used as:
 
-- Staking token. It can be used to self-delegate and delegate as stake, which can earn gas rewards and may suffer slash for improper behaviors.
-- Gas token. It can be used to pay the gas to submit transactions on the Greenfield blockchain, which includes Greenfield local transactions or 
+- **Staking token**: It can be used to self-delegate and delegate as stake, which can earn gas rewards and may suffer slash for improper behaviors.
+- **Gas token**: It can be used to pay the gas to submit transactions on the Greenfield blockchain, which includes Greenfield local transactions or 
   cross-chain transactions between Greenfield and BSC. This is charged at the time of transaction submission and dispatched to 
   Greenfield validators, and potentially Greenfield Storage Providers for some transactions. Fee distribution is done in-protocol and 
   a protocol specification is [described here](https://github.com/bnb-chain/greenfield-cosmos-sdk/blob/master/docs/spec/fee_distribution/f1_fee_distr.pdf).
-- Storage service fee token. It can be used to pay fees for the object storage and download bandwidth data package. This is charged 
+- **Storage service fee token**: It can be used to pay fees for the object storage and download bandwidth data package. This is charged 
   as time goes on and dispatched to Greenfield Storage Providers.
-- Governance token. BNB holders may govern the Greenfield by voting on proposals with their staked BNB (not day 1).
+- **Governance token**: BNB holders may govern the Greenfield by voting on proposals with their staked BNB (not day 1).
 
 No initial donors, foundation, or company will get funds in the genesis setup.
 

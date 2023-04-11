@@ -15,9 +15,9 @@ Users sign transactions using their own private key. Signature verification is d
 For on-chain signature verification purposes, we store the public key in an `Account` object (alongside other data required 
 for a proper transaction validation).
 
-In the node, all data is stored using Protocol Buffers serialization.
+In the node, all data is stored using [Protocol Buffers](https://protobuf.dev/) serialization.
 
-Greenfield only supports `secp256k1` key schemes for creating digital signatures:
+Greenfield only supports [secp256k1](https://en.bitcoin.it/wiki/Secp256k1) key schemes for creating digital signatures:
 
 |             | Address length in bytes | Public key length in bytes | Used for transaction authentication | Used for consensus (tendermint) |
 |:-----------:|:-----------------------:|:--------------------------:|:-----------------------------------:|:-------------------------------:|
