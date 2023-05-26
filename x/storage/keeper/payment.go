@@ -310,6 +310,10 @@ func (k Keeper) GetObjectLockFee(ctx sdk.Context, primarySpAddress string, price
 	}
 	rate := price.PrimaryStorePrice.Add(price.SecondaryStorePrice.MulInt64(storagetypes.SecondarySPNum)).MulInt(sdkmath.NewIntFromUint64(chargeSize)).TruncateInt()
 	reserveTime := k.paymentKeeper.GetParams(ctx).ReserveTime
+	// hotfix for qa env
+	if (ctx.BlockHeight() == 330365 || ctx.BlockHeight() == 330366) && ctx.ChainID() == "greenfield_9000-1741" {
+		reserveTime = 300
+	}
 	amount = rate.Mul(sdkmath.NewIntFromUint64(reserveTime))
 	return amount, nil
 }
