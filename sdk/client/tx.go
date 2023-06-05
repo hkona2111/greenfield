@@ -130,7 +130,7 @@ func (c *GreenfieldClient) signTx(ctx context.Context, txConfig client.TxConfig,
 		nonce = txOpt.Nonce
 	} else {
 		if hasOverrideAccount {
-			account, err = c.getAccountByAddr(km.GetAddr())
+			account, err = c.GetAccountByAddr(km.GetAddr())
 		}
 		if err != nil {
 			return nil, err
@@ -191,7 +191,7 @@ func (c *GreenfieldClient) setSingerInfo(txBuilder client.TxBuilder, txOpt *type
 	} else {
 		var account authtypes.AccountI
 		if hasOverrideAccount {
-			account, err = c.getAccountByAddr(km.GetAddr())
+			account, err = c.GetAccountByAddr(km.GetAddr())
 		} else {
 			account, err = c.getAccount()
 		}
@@ -298,10 +298,10 @@ func (c *GreenfieldClient) getAccount() (authtypes.AccountI, error) {
 	if err != nil {
 		return nil, err
 	}
-	return c.getAccountByAddr(km.GetAddr())
+	return c.GetAccountByAddr(km.GetAddr())
 }
 
-func (c *GreenfieldClient) getAccountByAddr(addr sdk.AccAddress) (authtypes.AccountI, error) {
+func (c *GreenfieldClient) GetAccountByAddr(addr sdk.AccAddress) (authtypes.AccountI, error) {
 	acct, err := c.AuthQueryClient.Account(context.Background(), &authtypes.QueryAccountRequest{Address: addr.String()})
 	if err != nil {
 		return nil, err
