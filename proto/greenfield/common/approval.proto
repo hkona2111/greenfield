@@ -16,5 +16,5 @@ message Approval {
   // The signature needs to conform to the EIP 712 specification.
   bytes sig = 2;
   // extends use to add some extends field to the approval
-  google.protobuf.Any extends = 3 [(gogoproto.customtype) = "github.com/cosmos/gogoproto/types.Any"];
+  google.protobuf.Any extends = 3;
 }

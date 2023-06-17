@@ -5,6 +5,8 @@ import (
 	"reflect"
 
 	sdkmath "cosmossdk.io/math"
+	"github.com/cosmos/cosmos-sdk/codec/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 const (
@@ -88,4 +90,23 @@ func (di *DeleteInfo) IsEmpty() bool {
 		isGroupIdsEmpty = true
 	}
 	return isBucketIdsEmpty && isObjectIdsEmpty && isGroupIdsEmpty
+}
+
+func NewCreateBucketApprovalExtends(globalVirtualGroupID uint32) *types.Any {
+	extends := &CreateBucketApprovalExtends{GlobalVirtualGroupFamilyId: globalVirtualGroupID}
+
+	ret, err := types.NewAnyWithValue(extends)
+	if err != nil {
+		panic(err)
+	}
+	return ret
+}
+
+func NewMigrationBucketApprovalExtends(migrationFee sdk.Coin) *types.Any {
+	extends := &MigrationBucketApprovalExtends{Fee: migrationFee}
+	ret, err := types.NewAnyWithValue(extends)
+	if err != nil {
+		panic(err)
+	}
+	return ret
 }

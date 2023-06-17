@@ -31,7 +31,7 @@ func (s *StorageTestSuite) TestDeleteBucketPermission() {
 	msgCreateBucket := storagetypes.NewMsgCreateBucket(
 		user[0].GetAddr(), bucketName, storagetypes.VISIBILITY_TYPE_PUBLIC_READ, sp.OperatorKey.GetAddr(),
 		nil, math.MaxUint, nil, 0)
-	msgCreateBucket.PrimarySpApproval.GlobalVirtualGroupFamilyId = gvg.FamilyId
+	msgCreateBucket.PrimarySpApproval.Extends = storagetypes.NewCreateBucketApprovalExtends(gvg.FamilyId)
 	msgCreateBucket.PrimarySpApproval.Sig, err = sp.ApprovalKey.Sign(msgCreateBucket.GetApprovalBytes())
 	s.Require().NoError(err)
 	s.SendTxBlock(user[0], msgCreateBucket)
@@ -109,7 +109,7 @@ func (s *StorageTestSuite) TestDeletePolicy() {
 	msgCreateBucket := storagetypes.NewMsgCreateBucket(
 		user[0].GetAddr(), bucketName, storagetypes.VISIBILITY_TYPE_PUBLIC_READ, sp.OperatorKey.GetAddr(),
 		nil, math.MaxUint, nil, 0)
-	msgCreateBucket.PrimarySpApproval.GlobalVirtualGroupFamilyId = gvg.FamilyId
+	msgCreateBucket.PrimarySpApproval.Extends = storagetypes.NewCreateBucketApprovalExtends(gvg.FamilyId)
 	msgCreateBucket.PrimarySpApproval.Sig, err = sp.ApprovalKey.Sign(msgCreateBucket.GetApprovalBytes())
 	s.Require().NoError(err)
 	s.SendTxBlock(user[0], msgCreateBucket)
@@ -212,7 +212,7 @@ func (s *StorageTestSuite) TestCreateObjectByOthers() {
 	msgCreateBucket := storagetypes.NewMsgCreateBucket(
 		user[0].GetAddr(), bucketName, storagetypes.VISIBILITY_TYPE_PUBLIC_READ, sp.OperatorKey.GetAddr(),
 		nil, math.MaxUint, nil, 0)
-	msgCreateBucket.PrimarySpApproval.GlobalVirtualGroupFamilyId = gvg.FamilyId
+	msgCreateBucket.PrimarySpApproval.Extends = storagetypes.NewCreateBucketApprovalExtends(gvg.FamilyId)
 	msgCreateBucket.PrimarySpApproval.Sig, err = sp.ApprovalKey.Sign(msgCreateBucket.GetApprovalBytes())
 	s.Require().NoError(err)
 	s.SendTxBlock(user[0], msgCreateBucket)
@@ -391,7 +391,7 @@ func (s *StorageTestSuite) TestCreateObjectByOthersExpiration() {
 	msgCreateBucket := storagetypes.NewMsgCreateBucket(
 		user[0].GetAddr(), bucketName, storagetypes.VISIBILITY_TYPE_PUBLIC_READ, sp.OperatorKey.GetAddr(),
 		nil, math.MaxUint, nil, 0)
-	msgCreateBucket.PrimarySpApproval.GlobalVirtualGroupFamilyId = gvg.FamilyId
+	msgCreateBucket.PrimarySpApproval.Extends = storagetypes.NewCreateBucketApprovalExtends(gvg.FamilyId)
 	msgCreateBucket.PrimarySpApproval.Sig, err = sp.ApprovalKey.Sign(msgCreateBucket.GetApprovalBytes())
 	s.Require().NoError(err)
 	s.SendTxBlock(user[0], msgCreateBucket)
@@ -512,7 +512,7 @@ func (s *StorageTestSuite) TestCreateObjectByOthersLimitSize() {
 	msgCreateBucket := storagetypes.NewMsgCreateBucket(
 		user[0].GetAddr(), bucketName, storagetypes.VISIBILITY_TYPE_PUBLIC_READ, sp.OperatorKey.GetAddr(),
 		nil, math.MaxUint, nil, 0)
-	msgCreateBucket.PrimarySpApproval.GlobalVirtualGroupFamilyId = gvg.FamilyId
+	msgCreateBucket.PrimarySpApproval.Extends = storagetypes.NewCreateBucketApprovalExtends(gvg.FamilyId)
 	msgCreateBucket.PrimarySpApproval.Sig, err = sp.ApprovalKey.Sign(msgCreateBucket.GetApprovalBytes())
 	s.Require().NoError(err)
 	s.SendTxBlock(user[0], msgCreateBucket)
@@ -639,7 +639,7 @@ func (s *StorageTestSuite) TestGrantsPermissionToGroup() {
 	msgCreateBucket := storagetypes.NewMsgCreateBucket(
 		user[0].GetAddr(), bucketName, storagetypes.VISIBILITY_TYPE_PUBLIC_READ, sp.OperatorKey.GetAddr(),
 		nil, math.MaxUint, nil, 0)
-	msgCreateBucket.PrimarySpApproval.GlobalVirtualGroupFamilyId = gvg.FamilyId
+	msgCreateBucket.PrimarySpApproval.Extends = storagetypes.NewCreateBucketApprovalExtends(gvg.FamilyId)
 	msgCreateBucket.PrimarySpApproval.Sig, err = sp.ApprovalKey.Sign(msgCreateBucket.GetApprovalBytes())
 	s.Require().NoError(err)
 	s.SendTxBlock(user[0], msgCreateBucket)
@@ -753,7 +753,7 @@ func (s *StorageTestSuite) TestVisibilityPermission() {
 		msgCreateBucket := storagetypes.NewMsgCreateBucket(
 			user[0].GetAddr(), bucket.BucketName, bucket.PublicType, sp.OperatorKey.GetAddr(),
 			nil, math.MaxUint, nil, 0)
-		msgCreateBucket.PrimarySpApproval.GlobalVirtualGroupFamilyId = gvg.FamilyId
+		msgCreateBucket.PrimarySpApproval.Extends = storagetypes.NewCreateBucketApprovalExtends(gvg.FamilyId)
 		msgCreateBucket.PrimarySpApproval.Sig, err = sp.ApprovalKey.Sign(msgCreateBucket.GetApprovalBytes())
 		s.Require().NoError(err)
 		s.SendTxBlock(user[0], msgCreateBucket)
@@ -906,7 +906,7 @@ func (s *StorageTestSuite) TestEmptyPermission() {
 		msgCreateBucket := storagetypes.NewMsgCreateBucket(
 			user[0].GetAddr(), bucket.BucketName, bucket.PublicType, sp.OperatorKey.GetAddr(),
 			nil, math.MaxUint, nil, 0)
-		msgCreateBucket.PrimarySpApproval.GlobalVirtualGroupFamilyId = gvg.FamilyId
+		msgCreateBucket.PrimarySpApproval.Extends = storagetypes.NewCreateBucketApprovalExtends(gvg.FamilyId)
 		msgCreateBucket.PrimarySpApproval.Sig, err = sp.ApprovalKey.Sign(msgCreateBucket.GetApprovalBytes())
 		s.Require().NoError(err)
 		s.SendTxBlock(user[0], msgCreateBucket)
@@ -1300,7 +1300,7 @@ func (s *StorageTestSuite) TestExceedEachBlockLimitGC() {
 		msgCreateBucket := storagetypes.NewMsgCreateBucket(
 			owner.GetAddr(), bucketName, storagetypes.VISIBILITY_TYPE_PUBLIC_READ, sp.OperatorKey.GetAddr(),
 			nil, math.MaxUint, nil, 0)
-		msgCreateBucket.PrimarySpApproval.GlobalVirtualGroupFamilyId = gvg.FamilyId
+		msgCreateBucket.PrimarySpApproval.Extends = storagetypes.NewCreateBucketApprovalExtends(gvg.FamilyId)
 		msgCreateBucket.PrimarySpApproval.Sig, err = sp.ApprovalKey.Sign(msgCreateBucket.GetApprovalBytes())
 		s.Require().NoError(err)
 		s.SendTxWithTxOpt(msgCreateBucket, owner, txOpt)

@@ -178,5 +178,5 @@ message CreateBucketApprovalExtends {
 }
 
 message MigrationBucketApprovalExtends {
-  cosmos.base.v1beta1.Coin amount = 1 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin fee = 1 [(gogoproto.nullable) = false];
 }

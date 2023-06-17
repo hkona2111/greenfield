@@ -130,6 +130,9 @@ func (msg *MsgCreateBucket) GetSigners() []sdk.AccAddress {
 
 // GetSignBytes returns the message bytes to sign over.
 func (msg *MsgCreateBucket) GetSignBytes() []byte {
+	ModuleCdc.InterfaceRegistry().RegisterImplementations((*proto.Message)(nil),
+		&CreateBucketApprovalExtends{},
+	)
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }

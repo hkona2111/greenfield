@@ -5,11 +5,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func NewSecondarySpSignDoc(spAddress sdk.AccAddress, objectID math.Uint, checksum []byte) *SecondarySpSignDoc {
+func NewSecondarySpSignDoc(spID uint32, objectID math.Uint, checksum []byte) *SecondarySpSignDoc {
 	return &SecondarySpSignDoc{
-		SpAddress: spAddress.String(),
-		ObjectId:  objectID,
-		Checksum:  checksum,
+		SpId:     spID,
+		ObjectId: objectID,
+		Checksum: checksum,
 	}
 }
 

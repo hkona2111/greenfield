@@ -6,6 +6,11 @@ import (
 
 	"cosmossdk.io/errors"
 	sdkmath "cosmossdk.io/math"
+	"github.com/bnb-chain/greenfield/internal/sequence"
+	"github.com/bnb-chain/greenfield/types/resource"
+	permtypes "github.com/bnb-chain/greenfield/x/permission/types"
+	sptypes "github.com/bnb-chain/greenfield/x/sp/types"
+	"github.com/bnb-chain/greenfield/x/storage/types"
 	virtualgroupmoduletypes "github.com/bnb-chain/greenfield/x/virtualgroup/types"
 	"github.com/cometbft/cometbft/libs/log"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -13,13 +18,6 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/gogoproto/proto"
-	gogoprototypes "github.com/cosmos/gogoproto/types"
-
-	"github.com/bnb-chain/greenfield/internal/sequence"
-	"github.com/bnb-chain/greenfield/types/resource"
-	permtypes "github.com/bnb-chain/greenfield/x/permission/types"
-	sptypes "github.com/bnb-chain/greenfield/x/sp/types"
-	"github.com/bnb-chain/greenfield/x/storage/types"
 )
 
 type (
@@ -116,7 +114,7 @@ func (k Keeper) CreateBucket(
 	}
 
 	var createBucketExtends *types.CreateBucketApprovalExtends
-	err = gogoprototypes.UnmarshalAny(opts.PrimarySpApproval.Extends, createBucketExtends)
+	err = k.cdc.UnpackAny(opts.PrimarySpApproval.Extends, createBucketExtends)
 	if err != nil {
 		return sdkmath.ZeroUint(), err
 	}
@@ -636,10 +634,21 @@ func (k Keeper) SealObject(
 	if !found {
 		return virtualgroupmoduletypes.ErrGVGNotExist
 	}
+
 	expectSecondarySPNum := k.GetExpectSecondarySPNumForECObject(ctx, objectInfo.CreateAt)
 	if int(expectSecondarySPNum) != len(gvg.SecondarySpIds) {
 		return errors.Wrapf(types.ErrInvalidGlobalVirtualGroup, "secondary sp num mismatch, expect (%d), but (%d)",
 			expectSecondarySPNum, len(gvg.SecondarySpIds))
+	}
+
+	// check the signature of secondary sps
+	// SecondarySP signs the root hash(checksum) of all pieces stored on it, and needs to verify that the signature here.
+	for i, spID := range gvg.SecondarySpIds {
+		sr := types.NewSecondarySpSignDoc(spID, objectInfo.Id, objectInfo.Checksums[i+1])
+		err := k.VerifySPAndSignature(ctx, spID, sr.GetSignBytes(), opts.SecondarySpSignatures[i])
+		if err != nil {
+			return err
+		}
 	}
 
 	lvg, err := k.virtualGroupKeeper.BindingObjectToGVG(ctx, bucketInfo.Id, sp.Id, bucketInfo.GlobalVirtualGroupFamilyId, opts.GlobalVirtualGroupId, objectInfo.PayloadSize)
